@@ -1,0 +1,209 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 29, 2019, 11:51:44 AM
+    Author     : Evan
+*/
+html,body {
+    height: 100%;
+}
+body{
+    background-color: black;
+    margin: 0;
+}
+nav {
+    font-family: "Open Sans";
+    font-size: 24px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 700;
+    line-height: 26.4px;
+    display: flex;
+    width: 100%;
+    height: 20%;
+    background: black;
+    align-items: center;
+    justify-content: center;
+}
+form {
+    text-decoration: none;
+    color: white;
+    margin: 0 40px;
+}
+.logo{
+    width: 200px;
+    height: 100%;
+    background: black;
+}
+input[type=submit]{
+    font-family: "Open Sans";
+    font-size: 24px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 700;
+    line-height: 26.4px;
+    border: black;
+    border-radius: 0px;
+    background-color: black;
+    color: whitesmoke;
+    padding: 10px 20px;
+    margin: 5px 3px;
+    cursor: pointer;
+}
+.left{
+    float: left;
+}
+.right{
+    float: right;
+}
+footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 10rem;
+    text-align: center;
+    color: white;
+    background-color: black;
+}
+footer input[type=submit]{
+    font-family: "Open Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 700;
+    line-height: 26.4px;
+    border: gray;
+    border-radius: 0px;
+    background-color: black;
+    color: white;
+    padding: 5px 10px;
+    margin: 5px 3px;
+    cursor: pointer;
+}
+.city{
+    padding-top: 50px;
+    text-align: center;
+    font-family: "Open Sans"; 
+    font-size: 56px; 
+    font-style: normal; 
+    font-variant: normal; 
+    font-weight: 700; 
+    line-height: 26.4px;
+    padding-bottom: 10px;
+    color: whitesmoke;
+}
+.current{
+    padding-top: 30px;
+    text-align: center;
+    font-family: "Open Sans"; 
+    font-size: 30px; 
+    font-style: normal; 
+    font-variant: normal; 
+    font-weight: 700; 
+    line-height: 26.4px;
+    padding-bottom: 7px;
+    color: whitesmoke;
+}
+.high{
+    padding-top: 20px;
+    text-align: center;
+    font-family: "Open Sans"; 
+    font-size: 25px; 
+    font-style: normal; 
+    font-variant: normal; 
+    font-weight: 700; 
+    line-height: 26.4px;
+    padding-bottom: 5px;
+    color: whitesmoke;
+}
+.low{
+    padding-top: 20px;
+    text-align: center;
+    font-family: "Open Sans"; 
+    font-size: 25px; 
+    font-style: normal; 
+    font-variant: normal; 
+    font-weight: 700; 
+    line-height: 26.4px;
+    padding-bottom: 5px;
+    color: whitesmoke;
+}
+h1 { font-family: "Open Sans"; font-size: 24px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 26.4px; }
+h3 { font-family: "Open Sans"; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 15.4px; }
+p { font-family: "Open Sans"; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 20px; }
+blockquote { font-family: "Open Sans"; font-size: 21px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 30px; }
+pre { font-family: "Open Sans"; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 18.5714px; }
+.location{
+    color: whitesmoke;
+    text-align: center;
+    float: inside;
+}
+.fiveday{
+    color:whitesmoke;
+    text-align: center;
+    text-orientation: sideways-left;
+}
+.aboutContact{
+    padding-top: 50px;
+    text-align: center;
+    font-family: "Open Sans"; 
+    font-size: 56px; 
+    font-style: normal; 
+    font-variant: normal; 
+    font-weight: 700; 
+    line-height: 26.4px;
+    padding-bottom: 20px;
+    color: whitesmoke;
+}
+.details{
+    color: whitesmoke;
+    text-align: center;
+}
+#mapid{
+    height: 400px;
+    width: 400px;
+    align-content: center;
+}
+.y{
+    
+}
+#clear{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 15%;
+    width: 15%;
+}
+#overcast{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 15%;
+    width: 15%;
+}
+#rain{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 15%;
+    width: 15%;
+}
+.micah{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 20%;
+    width: 20%;
+}
+ul{
+    list-style-type: none;
+}
+li{
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    
+}
