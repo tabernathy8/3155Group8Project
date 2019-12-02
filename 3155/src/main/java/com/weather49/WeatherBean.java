@@ -40,7 +40,12 @@ public class WeatherBean {
         location = city;
     }
     public double getHigh(){
-        high = cwd.getMainData().getTempMax();
+        try{
+            high = cwd.getMainData().getTempMax();
+        } catch( NullPointerException e){
+            e.toString();
+            return -512;
+        }
         return high;
     }
     public double getCurrentTemp(){

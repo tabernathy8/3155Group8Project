@@ -55,6 +55,7 @@ public class homeController extends HttpServlet {
         double current;
         String action = request.getParameter("action");
         System.out.println(action);
+        String invalid = "false";
         if(action.equalsIgnoreCase("Contact Us"))
         {
             getServletContext()
@@ -67,15 +68,39 @@ public class homeController extends HttpServlet {
                     .getRequestDispatcher("/about.jsp")
                     .forward(request, response);  
         }
-        if(action.equalsIgnoreCase("Home"))
+        if(action.equalsIgnoreCase("Home") && (invalid.equals("false")))
         {
-            
+            session.setAttribute("invalid", "true");
             city = request.getParameter("city");
-            session.setAttribute("city", city);
             String a = (String) session.getAttribute("city");
             System.out.println(a);
             wd.setCity(city);
             wd.setCurrentWeather();
+            if(wd.getHigh() == -512)
+            {
+                session.setAttribute("invalid", "true");
+                session.removeAttribute(city);
+                getServletContext()
+                    .getRequestDispatcher("/index.jsp")
+                    .forward(request, response);
+            }
+            if(wd.getLow() == -512)
+            {
+                session.setAttribute("invalid", "true");
+                session.removeAttribute(city);
+                getServletContext()
+                    .getRequestDispatcher("/index.jsp")
+                    .forward(request, response);
+            }
+            if(wd.getCurrentTemp() == -512)
+            {
+                session.setAttribute("invalid", "true");
+                session.removeAttribute(city);
+                getServletContext()
+                    .getRequestDispatcher("/index.jsp")
+                    .forward(request, response);
+            }
+            session.setAttribute("invalid", "false");
             high = wd.getHigh();
             high = (((high - 273) * 9/5) + 32);
             high = Math.round(high);
@@ -107,6 +132,17 @@ public class homeController extends HttpServlet {
             getServletContext()
                     .getRequestDispatcher("/index.jsp")
                     .forward(request, response);        
+        }
+        if(action.equalsIgnoreCase("Home") && invalid.equalsIgnoreCase("True"))
+        {
+            session.removeAttribute("city");
+            session.removeAttribute("high");
+            session.removeAttribute("low");
+            session.removeAttribute("current");
+            
+            getServletContext()
+                    .getRequestDispatcher("/index.jsp")
+                        .forward(request,response);
         }
         if(action.equalsIgnoreCase("See More"))
         {

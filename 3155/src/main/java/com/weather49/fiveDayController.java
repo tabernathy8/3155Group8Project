@@ -63,6 +63,7 @@ public class fiveDayController extends HttpServlet {
             wd.setHourlyForecast();
             List<WeatherData> ws = wd.getHourlyForecast();
             List<WeatherData> x = new ArrayList();
+            ArrayList<Double> highs = new ArrayList<>();
             for(int i = 0; i < ws.size();i++)
             {
                 if(ws.get(i).getDateTimeText().contains("12:00:00"))
@@ -70,7 +71,11 @@ public class fiveDayController extends HttpServlet {
                     x.add(ws.get(i));
                 }
             }
-            session.setAttribute("daily", x);
+            session.setAttribute("today", x.get(0));
+            session.setAttribute("tommorrow",x.get(1));
+            session.setAttribute("day3",x.get(2));
+            session.setAttribute("day4",x.get(3));
+            session.setAttribute("day5",x.get(4));
             getServletContext()
                     .getRequestDispatcher("/5day.jsp")
                     .forward(request, response);     
