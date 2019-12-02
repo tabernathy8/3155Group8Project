@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>homeController</servlet-name>
+        <servlet-class>com.weather49.homeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>locationController</servlet-name>
+        <servlet-class>com.weather49.locationController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>fiveDayController</servlet-name>
+        <servlet-class>com.weather49.fiveDayController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>radarController</servlet-name>
+        <servlet-class>com.weather49.radarController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>homeController</servlet-name>
+        <url-pattern>/weather</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>fiveDayController</servlet-name>
+        <url-pattern>/fiveday</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>locationController</servlet-name>
+        <url-pattern>/location</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>radarController</servlet-name>
+        <url-pattern>/radar</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
