@@ -17,6 +17,10 @@
             <form style="text-align: center;"><input type="image" id = "clear" src="media/rainy.png" alt = "Rain"  width = 250  height = 250><input type="hidden" value="See More" name="action"/></form>
             <br><br><br><br>
         </c:if>
+        <c:if test = "${weather.equals('Clear')}">
+            <form style="text-align: center;"><input type="image" name = "action" id = "clear" src="media/clear.png" alt = "Clear"  width = 250  height = 250><input type="hidden" value="See More" name="action"/></form>
+            <br><br><br><br>
+        </c:if>    
         <c:if test = "${weather.equals('Snow')}">
             <form style="text-align: center;"><input type="image" name = "action" id = "clear" src="media/snow.png" alt = "Snow"  width = 250  height = 250><input type="hidden" value="See More" name="action"/></form>
             <br><br><br><br>

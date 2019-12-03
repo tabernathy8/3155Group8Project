@@ -7,13 +7,19 @@ package com.weather49;
 import java.util.*;
 import java.io.IOException;
 import java.net.*;
+import com.github.prominence.openweathermap.api.*;
+import com.github.prominence.openweathermap.api.model.*;
+import com.github.prominence.openweathermap.api.utils.*;
+import com.github.prominence.openweathermap.api.constants.*;
+import com.github.prominence.openweathermap.api.exception.*;
+import com.github.prominence.openweathermap.api.model.response.*;
 import net.aksingh.owmjapis.core.*;
-import net.*;
 import net.aksingh.owmjapis.api.*;
 import net.aksingh.owmjapis.model.*;
-import net.aksingh.owmjapis.model.param.*;
+import net.aksingh.owmjapis.util.*;
 import net.aksingh.owmjapis.demo.*;
-import net.aksingh.owmjapis.util.*; 
+import net.aksingh.owmjapis.core.OWM;
+
 
 /**
  *
@@ -21,14 +27,20 @@ import net.aksingh.owmjapis.util.*;
  */
 public class WeatherBean {
     OWM owm = new OWM("566c5f6f796270ca04bd8c5031da5847");
+    CurrentWeather cwd;
+    OpenWeatherMapManager openWeatherManager = new OpenWeatherMapManager("566c5f6f796270ca04bd8c5031da5847");
+    WeatherRequester weatherRequester = openWeatherManager.getWeatherRequester();
+    HourlyForecastRequester forecastRequester = openWeatherManager.getForecastRequester();
+    Weather weatherResponse;
+    HourlyForecast forecastResponse;
     String location;
     double high;
     double low;
     double current;
     String country;
-    List<WeatherData> hwdl;
+    /*List<WeatherData> hwdl;
     List<ForecastData> dwdl;
-    CurrentWeather cwd;
+    CurrentWeather cwd;*/
     
     
     public WeatherBean(){
@@ -40,59 +52,86 @@ public class WeatherBean {
         location = city;
     }
     public double getHigh(){
+        
         try{
-            high = cwd.getMainData().getTempMax();
-        } catch( NullPointerException e){
-            e.toString();
-            return -512;
+            high = weatherResponse.getWeatherInfo().getMaximumTemperature();
+            return high;
+        } catch(Exception e)
+        {
+            e.getMessage();
         }
-        return high;
+        return -512;
+        
     }
     public double getCurrentTemp(){
-        current = cwd.getMainData().getTemp();
+        current = weatherResponse.getWeatherInfo().getTemperature();
         return current;
     }
-    public CurrentWeather getCurrentWeather()
+    public Weather getCurrentWeather()
     {
-        return cwd;
+        return weatherResponse;
     }
     public void setCurrentWeather()
     {
         try{
-            cwd = owm.currentWeatherByCityName(location);
+             cwd = owm.currentWeatherByCityName(location);
+             weatherResponse = weatherRequester
+                .setLanguage(Language.ENGLISH)
+                .setUnitSystem(Unit.IMPERIAL_SYSTEM)
+                .setAccuracy(Accuracy.ACCURATE)
+                .getByCityName(location);
         }
-        catch(APIException e){
+        catch(Exception e){
             e.toString();
         }
     }
+    public double getLatitude()
+    {
+        return cwd.getCoordData().getLatitude();
+    }
+    public double getLongitude()
+    {
+        return cwd.getCoordData().getLongitude();
+    }
     public Date getSunRiseTime()
     {
-       return cwd.getSystemData().getSunriseDateTime();
+       return weatherResponse.getWeatherSystemInfo().getSunriseDate();
     }
     public Date getSunSetTime()
     {
-       return cwd.getSystemData().getSunsetDateTime();
+       return weatherResponse.getWeatherSystemInfo().getSunsetDate();
     }
     public double getLow(){
-        low = cwd.getMainData().getTempMin();
+        low = weatherResponse.getWeatherInfo().getMinimumTemperature();
         return low;
     }
     public String getZipCity(){
-        return cwd.getCityName();
+        return weatherResponse.getCityName();
     }
-    
+    public Snow getSnow(){
+        return weatherResponse.getSnow();
+    }
+    public Rain getRain(){
+        return weatherResponse.getRain();
+    }
+    public Wind getWind()
+    {
+        return weatherResponse.getWind();
+    }
     public void setHourlyForecast(){
-        HourlyWeatherForecast hwd = new HourlyWeatherForecast();
         try{
-            hwd = owm.hourlyWeatherForecastByCityName(location);
-            this.hwdl = hwd.getDataList();
+             forecastResponse = forecastRequester
+                .setLanguage(Language.ENGLISH)
+                .setUnitSystem(Unit.IMPERIAL_SYSTEM)
+                .setAccuracy(Accuracy.ACCURATE)
+                .getByCityName(location);
         }
-        catch(APIException e){
-            e.createMessage();
+        catch(Exception e){
+            e.toString();
         }
     }
-    public List<WeatherData> getHourlyForecast(){
-        return hwdl;
+    public List<HourlyForecast.Forecast> getHourlyForecast(){
+            return forecastResponse.getForecasts();
     }
 }
 

@@ -5,6 +5,7 @@
  */
 package com.weather49;
 
+import com.github.prominence.openweathermap.api.model.response.HourlyForecast;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -23,14 +24,7 @@ import java.sql.*;
 import java.util.*;
 import java.io.IOException;
 import java.net.*;
-import net.aksingh.owmjapis.core.*;
-import net.aksingh.owmjapis.api.*;
-import net.aksingh.owmjapis.model.*;
-import net.aksingh.owmjapis.model.param.WeatherData;
-import net.aksingh.owmjapis.model.param.ForecastData;
-import net.aksingh.owmjapis.model.param.Weather;
-import net.aksingh.owmjapis.demo.*;
-import net.aksingh.owmjapis.util.*; 
+import com.github.prominence.openweathermap.api.model.*;
 
 /**
  *
@@ -55,27 +49,45 @@ public class fiveDayController extends HttpServlet {
         String city;
         WeatherBean wd = new WeatherBean();
         HttpSession session = request.getSession();
-        if(action.equalsIgnoreCase("5 Day Forecast"))
+        if(action.equalsIgnoreCase("4 Day Forecast"))
         {
             city = request.getParameter("city");
             session.setAttribute("city" ,city);
             wd.setCity(city);
             wd.setHourlyForecast();
-            List<WeatherData> ws = wd.getHourlyForecast();
-            List<WeatherData> x = new ArrayList();
+            List<HourlyForecast.Forecast> ws = wd.getHourlyForecast();
+            List<HourlyForecast.Forecast> x = new ArrayList();
+            List<HourlyForecast.Forecast> low = new ArrayList();
             ArrayList<Double> highs = new ArrayList<>();
+            ArrayList<Float> lowTemps = new ArrayList();
+            ArrayList<Float> highTemps = new ArrayList();
             for(int i = 0; i < ws.size();i++)
             {
-                if(ws.get(i).getDateTimeText().contains("12:00:00"))
+                if(ws.get(i).getDt_txt().contains("15:00:00"))
                 {   
                     x.add(ws.get(i));
                 }
             }
-            session.setAttribute("today", x.get(0));
-            session.setAttribute("tommorrow",x.get(1));
-            session.setAttribute("day3",x.get(2));
-            session.setAttribute("day4",x.get(3));
-            session.setAttribute("day5",x.get(4));
+            for(int i = 0; i < ws.size(); i++)
+            {
+                if(ws.get(i).getDt_txt().contains("6:00:00"))
+                {
+                    low.add(ws.get(i));
+                }
+            }
+            for(int i = 0; i < x.size(); i++)
+            {
+                float temp = Math.round(x.get(i).getWeatherInfo().getTemperature());
+                highTemps.add(temp);
+            }
+            for(int i = 0; i < low.size(); i++)
+            {
+                float temp = Math.round(low.get(i).getWeatherInfo().getTemperature());
+                lowTemps.add(temp);
+            }
+            session.setAttribute("x", x);
+            session.setAttribute("highTemps", highTemps);
+            session.setAttribute("lowTemps", lowTemps);
             getServletContext()
                     .getRequestDispatcher("/5day.jsp")
                     .forward(request, response);     

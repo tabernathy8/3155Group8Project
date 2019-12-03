@@ -5,6 +5,9 @@
  */
 package com.weather49;
 
+import com.github.prominence.openweathermap.api.model.Rain;
+import com.github.prominence.openweathermap.api.model.Snow;
+import com.github.prominence.openweathermap.api.model.Wind;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -102,28 +105,33 @@ public class homeController extends HttpServlet {
             }
             session.setAttribute("invalid", "false");
             high = wd.getHigh();
-            high = (((high - 273) * 9/5) + 32);
             high = Math.round(high);
             int intHigh = (int) high;
             session.setAttribute("high", intHigh);
             low = wd.getLow();
-            low = (((low - 273) * 9/5) + 32);
             low= Math.round(low);
             int intLow = (int) low;
             session.setAttribute("low", intLow);
             current = wd.getCurrentTemp();
-            current = (((current - 273) * 9/5) + 32);
             current = Math.round(current);
             int intCur = (int) current;
             session.setAttribute("current", intCur);
-            city = wd.getCurrentWeather().getCityName();
+            city = wd.getCity();
+            Snow snowInfo = wd.getSnow();
+            Rain rainInfo = wd.getRain();
+            Wind windInfo = wd.getWind();
             
-            session.setAttribute("weather", wd.getCurrentWeather().getWeatherList().get(0).getMainInfo());
+            
+            session.setAttribute("weather", wd.getCurrentWeather().getWeatherStates().get(0).getWeatherGroup());
+            session.setAttribute("weatherDescription", wd.getCurrentWeather().getWeatherStates().get(0).getDescription());
             session.setAttribute("city", city);
             session.setAttribute("sunUp", wd.getSunRiseTime());
             session.setAttribute("sunDown", wd.getSunSetTime());
-            session.setAttribute("humidity", wd.cwd.getMainData().getHumidity());
-            session.setAttribute("pressure", wd.cwd.getMainData().getPressure());
+            session.setAttribute("humidity", wd.getCurrentWeather().getHumidityPercentage());
+            session.setAttribute("pressure", wd.getCurrentWeather().getPressure());
+            session.setAttribute("snow", snowInfo);
+            session.setAttribute("rain", rainInfo);
+            session.setAttribute("wind", windInfo);
             
             
             
