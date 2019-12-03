@@ -1,16 +1,7 @@
 <jsp:include page="header.jsp"/>
 <jsp:include page="navigation.jsp"/>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div id="mapid"></div>
-<script>
-    var mymap = L.map('mapid').setView([51.505, -0.09], 13);
-    L.tileLayer('http://maps.openweathermap.org/maps/2.0/weather/PA0/0/0/0?date=1527811200&appid=566c5f6f796270ca04bd8c5031da5847'
-    , {
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    maxZoom: 18,
-    id: 'mapbox/streets-v11',
-    accessToken: 'your.mapbox.access.token'
-}).addTo(mymap);
-
-</script>
-<jsp:include page="footer.jsp"/>
+<center>
+<iframe src="https://www.rainviewer.com/map.html?loc=${lat},${lng},6&oFa=0&oC=0&oU=0&oCS=1&oF=0&oAP=0&rmt=4&c=1&o=83&lm=0&th=0&sm=1&sn=1" width="50%" align = "center" frameborder="0" style="border:0;height:50vh;" allowfullscreen></iframe
+</center>
+<jsp:include page="footer.jsp"/>"footer.jsp"/>

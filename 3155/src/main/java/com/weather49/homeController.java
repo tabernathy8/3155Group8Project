@@ -121,7 +121,8 @@ public class homeController extends HttpServlet {
             Rain rainInfo = wd.getRain();
             Wind windInfo = wd.getWind();
             
-            
+            session.setAttribute("long", wd.getLongitude());
+            session.setAttribute("lat", wd.getLatitude());
             session.setAttribute("weather", wd.getCurrentWeather().getWeatherStates().get(0).getWeatherGroup());
             session.setAttribute("weatherDescription", wd.getCurrentWeather().getWeatherStates().get(0).getDescription());
             session.setAttribute("city", city);

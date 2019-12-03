@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -30,12 +31,20 @@ public class radarController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        WeatherBean wd = new WeatherBean();
+        HttpSession session = request.getSession();
+        
         String action = request.getParameter("action");
         if(action.equals("Radar"))
         {
+            wd.setCity(request.getParameter("city"));
+            wd.setCurrentWeather();
+            session.setAttribute("lat", wd.getLatitude());
+            session.setAttribute("lng",wd.getLongitude());
             getServletContext()
                     .getRequestDispatcher("/radar.jsp")
                     .forward(request, response);
+            
         }
         else
         {

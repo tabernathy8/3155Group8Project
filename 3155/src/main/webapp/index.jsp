@@ -36,7 +36,11 @@
         <c:if test = "${weather.equals('Mist')}">
             <form style="text-align: center;"><input type="image" name = "action" id = "clear" src="media/mist.png" alt = "Mist"  width = 250  height = 250><input type="hidden" value="See More" name="action"/></form>
             <br><br><br><br>
-        </c:if>    
+        </c:if>  
+        <c:if test = "${weather.equals('Haze')}">
+            <form style="text-align: center;"><input type="image" name = "action" id = "clear" src="media/haze.png" alt = "haze"  width = 250  height = 250><input type="hidden" value="See More" name="action"/></form>
+            <br><br><br><br>
+        </c:if>
     </c:if>
             <br><br><br><br><br>
 
