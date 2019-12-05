@@ -1,5 +1,4 @@
 com\weather49\fiveDayController.class
 com\weather49\radarController.class
 com\weather49\homeController.class
-com\weather49\locationController.class
 com\weather49\WeatherBean.class

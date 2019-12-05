@@ -33,12 +33,30 @@ public class radarController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         WeatherBean wd = new WeatherBean();
         HttpSession session = request.getSession();
-        
+        session.setAttribute("act", "radar");
         String action = request.getParameter("action");
+        wd.setCity(request.getParameter("city"));  
+        wd.setCurrentWeather();
+        
+        if(session.getAttribute("lat") != null)
+        {
+            String oldCity = (String) session.getAttribute("city");
+            double oldLat = (double) session.getAttribute("lat");
+            double oldLng = (double) session.getAttribute("lng");
+            if(wd.getHigh() == -512)
+            {
+                session.setAttribute("city",oldCity);
+                session.setAttribute("lat", oldLat);
+                session.setAttribute("lng", oldLng);
+                getServletContext()
+                        .getRequestDispatcher("/radar.jsp")
+                            .forward(request, response);
+            }
+        }
+        session.setAttribute("action", action);
         if(action.equals("Radar"))
         {
-            wd.setCity(request.getParameter("city"));
-            wd.setCurrentWeather();
+            session.setAttribute("city", wd.getCurrentWeather().getCityName());
             session.setAttribute("lat", wd.getLatitude());
             session.setAttribute("lng",wd.getLongitude());
             getServletContext()

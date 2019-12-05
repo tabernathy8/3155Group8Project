@@ -18,27 +18,31 @@
             <br><br><br><br>
         </c:if>
         <c:if test = "${weather.equals('Clear')}">
-            <form style="text-align: center;"><input type="image" name = "action" id = "clear" src="media/clear.png" alt = "Clear"  width = 250  height = 250><input type="hidden" value="See More" name="action"/></form>
+            <form style="text-align: center;"><input type="image" id = "clear" src="media/clear.png" alt = "Clear"  width = 250  height = 250><input type="hidden" value="See More" name="action"/></form>
             <br><br><br><br>
         </c:if>    
         <c:if test = "${weather.equals('Snow')}">
-            <form style="text-align: center;"><input type="image" name = "action" id = "clear" src="media/snow.png" alt = "Snow"  width = 250  height = 250><input type="hidden" value="See More" name="action"/></form>
+            <form style="text-align: center;"><input type="image" id = "clear" src="media/snow.png" alt = "Snow"  width = 250  height = 250><input type="hidden" value="See More" name="action"/></form>
             <br><br><br><br>
         </c:if>
         <c:if test = "${weather.equals('Drizzle')}">
-            <form style="text-align: center;"><input type="image" name = "action" id = "clear" src="media/drizzle.png" alt = "Drizzle"  width = 250  height = 250><input type="hidden" value="See More" name="action"/></form>
+            <form style="text-align: center;"><input type="image" id = "clear" src="media/drizzle.png" alt = "Drizzle"  width = 250  height = 250><input type="hidden" value="See More" name="action"/></form>
             <br><br><br><br>
         </c:if>    
         <c:if test = "${weather.equals('Thunderstorm')}">
-            <form style="text-align: center;"><input type="image" name = "action" id = "clear" src="media/thunder.png" alt = "Thunderstorm"  width = 250  height = 250><input type="hidden" value="See More" name="action"/></form>
+            <form style="text-align: center;"><input type="image" id = "clear" src="media/thunder.png" alt = "Thunderstorm"  width = 250  height = 250><input type="hidden" value="See More" name="action"/></form>
             <br><br><br><br>
         </c:if>
         <c:if test = "${weather.equals('Mist')}">
-            <form style="text-align: center;"><input type="image" name = "action" id = "clear" src="media/mist.png" alt = "Mist"  width = 250  height = 250><input type="hidden" value="See More" name="action"/></form>
+            <form style="text-align: center;"><input type="image" id = "clear" src="media/mist.png" alt = "Mist"  width = 250  height = 250><input type="hidden" value="See More" name="action"/></form>
             <br><br><br><br>
         </c:if>  
         <c:if test = "${weather.equals('Haze')}">
-            <form style="text-align: center;"><input type="image" name = "action" id = "clear" src="media/haze.png" alt = "haze"  width = 250  height = 250><input type="hidden" value="See More" name="action"/></form>
+            <form style="text-align: center;"><input type="image" id = "clear" src="media/haze.png" alt = "haze"  width = 250  height = 250><input type="hidden" value="See More" name="action"/></form>
+            <br><br><br><br>
+        </c:if>
+        <c:if test = "${weather.equals('Fog')}">
+            <form style="text-align: center;"><input type="image" id = "clear" src="media/fog.png" alt = "fog"  width = 250  height = 250><input type="hidden" value="See More" name="action"/></form>
             <br><br><br><br>
         </c:if>
     </c:if>

@@ -3,18 +3,17 @@
     <servlet>
         <servlet-name>homeController</servlet-name>
         <servlet-class>com.weather49.homeController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>locationController</servlet-name>
-        <servlet-class>com.weather49.locationController</servlet-class>
+        <load-on-startup>0</load-on-startup>
     </servlet>
     <servlet>
         <servlet-name>fiveDayController</servlet-name>
         <servlet-class>com.weather49.fiveDayController</servlet-class>
+        <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet>
         <servlet-name>radarController</servlet-name>
         <servlet-class>com.weather49.radarController</servlet-class>
+        <load-on-startup>2</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>homeController</servlet-name>
@@ -22,11 +21,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>fiveDayController</servlet-name>
-        <url-pattern>/fiveday</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>locationController</servlet-name>
-        <url-pattern>/location</url-pattern>
+        <url-pattern>/fourday</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>radarController</servlet-name>

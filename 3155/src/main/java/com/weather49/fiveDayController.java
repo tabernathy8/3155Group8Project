@@ -47,20 +47,39 @@ public class fiveDayController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String action =request.getParameter("action");
         String city;
+        String oldCity;
         WeatherBean wd = new WeatherBean();
         HttpSession session = request.getSession();
+        session.setAttribute("act", "fourday");
         if(action.equalsIgnoreCase("4 Day Forecast"))
         {
+            oldCity = (String) session.getAttribute("city");
             city = request.getParameter("city");
+            session.setAttribute("action", action);
+            
             session.setAttribute("city" ,city);
             wd.setCity(city);
             wd.setHourlyForecast();
+            if(wd.ex.equalsIgnoreCase("class com.github.prominence.openweathermap.api.exception.DataNotFoundException"))
+            {
+                session.setAttribute("city", oldCity);
+                getServletContext()
+                    .getRequestDispatcher("/5day.jsp")
+                    .forward(request, response);    
+            }
             List<HourlyForecast.Forecast> ws = wd.getHourlyForecast();
             List<HourlyForecast.Forecast> x = new ArrayList();
             List<HourlyForecast.Forecast> low = new ArrayList();
             ArrayList<Double> highs = new ArrayList<>();
             ArrayList<Float> lowTemps = new ArrayList();
             ArrayList<Float> highTemps = new ArrayList();
+            if(ws == null)
+            {
+                session.setAttribute("city", oldCity);
+                getServletContext()
+                    .getRequestDispatcher("/5day.jsp")
+                    .forward(request, response);
+            }
             for(int i = 0; i < ws.size();i++)
             {
                 if(ws.get(i).getDt_txt().contains("15:00:00"))
@@ -85,7 +104,9 @@ public class fiveDayController extends HttpServlet {
                 float temp = Math.round(low.get(i).getWeatherInfo().getTemperature());
                 lowTemps.add(temp);
             }
+            
             session.setAttribute("x", x);
+            session.setAttribute("city", wd.getCity());
             session.setAttribute("highTemps", highTemps);
             session.setAttribute("lowTemps", lowTemps);
             getServletContext()

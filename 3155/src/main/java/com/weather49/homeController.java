@@ -59,28 +59,46 @@ public class homeController extends HttpServlet {
         String action = request.getParameter("action");
         System.out.println(action);
         String invalid = "false";
+        session.setAttribute("act", "weather");
+        if(action.isEmpty())
+        {
+            if(session.getAttribute("action") == null)
+            {
+                action = "home";
+            }
+            else
+            {
+                action = (String) session.getAttribute("action");
+            }
+            
+        }
         if(action.equalsIgnoreCase("Contact Us"))
         {
+            session.setAttribute("action", action);
             getServletContext()
                     .getRequestDispatcher("/contact.jsp")
                     .forward(request, response);  
         }
         if(action.equalsIgnoreCase("About Us"))
         {
+            session.setAttribute("action", action);
             getServletContext()
                     .getRequestDispatcher("/about.jsp")
                     .forward(request, response);  
         }
         if(action.equalsIgnoreCase("Home") && (invalid.equals("false")))
         {
-            session.setAttribute("invalid", "true");
             city = request.getParameter("city");
+            
+            session.setAttribute("action", action);
+            session.setAttribute("invalid", "true");;
             String a = (String) session.getAttribute("city");
             System.out.println(a);
             wd.setCity(city);
             wd.setCurrentWeather();
             if(wd.getHigh() == -512)
             {
+                session.setAttribute("action", action);
                 session.setAttribute("invalid", "true");
                 session.removeAttribute(city);
                 getServletContext()
@@ -89,6 +107,7 @@ public class homeController extends HttpServlet {
             }
             if(wd.getLow() == -512)
             {
+                session.setAttribute("action", action);
                 session.setAttribute("invalid", "true");
                 session.removeAttribute(city);
                 getServletContext()
@@ -97,12 +116,14 @@ public class homeController extends HttpServlet {
             }
             if(wd.getCurrentTemp() == -512)
             {
+                session.setAttribute("action", action);
                 session.setAttribute("invalid", "true");
                 session.removeAttribute(city);
                 getServletContext()
                     .getRequestDispatcher("/index.jsp")
                     .forward(request, response);
             }
+            
             session.setAttribute("invalid", "false");
             high = wd.getHigh();
             high = Math.round(high);
@@ -116,13 +137,11 @@ public class homeController extends HttpServlet {
             current = Math.round(current);
             int intCur = (int) current;
             session.setAttribute("current", intCur);
-            city = wd.getCity();
+            city = wd.getCurrentWeather().getCityName();;
             Snow snowInfo = wd.getSnow();
             Rain rainInfo = wd.getRain();
             Wind windInfo = wd.getWind();
             
-            session.setAttribute("long", wd.getLongitude());
-            session.setAttribute("lat", wd.getLatitude());
             session.setAttribute("weather", wd.getCurrentWeather().getWeatherStates().get(0).getWeatherGroup());
             session.setAttribute("weatherDescription", wd.getCurrentWeather().getWeatherStates().get(0).getDescription());
             session.setAttribute("city", city);
@@ -144,6 +163,7 @@ public class homeController extends HttpServlet {
         }
         if(action.equalsIgnoreCase("Home") && invalid.equalsIgnoreCase("True"))
         {
+            session.setAttribute("action", action);
             session.removeAttribute("city");
             session.removeAttribute("high");
             session.removeAttribute("low");
@@ -155,7 +175,7 @@ public class homeController extends HttpServlet {
         }
         if(action.equalsIgnoreCase("See More"))
         {
-            
+            session.setAttribute("action", action);
             getServletContext()
                     .getRequestDispatcher("/details.jsp")
                         .forward(request, response);

@@ -13,6 +13,7 @@ import com.github.prominence.openweathermap.api.utils.*;
 import com.github.prominence.openweathermap.api.constants.*;
 import com.github.prominence.openweathermap.api.exception.*;
 import com.github.prominence.openweathermap.api.model.response.*;
+import com.github.prominence.openweathermap.api.exception.*;
 import net.aksingh.owmjapis.core.*;
 import net.aksingh.owmjapis.api.*;
 import net.aksingh.owmjapis.model.*;
@@ -38,6 +39,7 @@ public class WeatherBean {
     double low;
     double current;
     String country;
+    String ex = "";
     /*List<WeatherData> hwdl;
     List<ForecastData> dwdl;
     CurrentWeather cwd;*/
@@ -74,7 +76,6 @@ public class WeatherBean {
     public void setCurrentWeather()
     {
         try{
-             cwd = owm.currentWeatherByCityName(location);
              weatherResponse = weatherRequester
                 .setLanguage(Language.ENGLISH)
                 .setUnitSystem(Unit.IMPERIAL_SYSTEM)
@@ -87,11 +88,14 @@ public class WeatherBean {
     }
     public double getLatitude()
     {
-        return cwd.getCoordData().getLatitude();
+        this.setCurrentWeather();
+        double temp = weatherResponse.getCoordinates().getLatitude();
+        return temp; 
+        
     }
     public double getLongitude()
     {
-        return cwd.getCoordData().getLongitude();
+        return weatherResponse.getCoordinates().getLongitude();
     }
     public Date getSunRiseTime()
     {
@@ -126,12 +130,26 @@ public class WeatherBean {
                 .setAccuracy(Accuracy.ACCURATE)
                 .getByCityName(location);
         }
-        catch(Exception e){
-            e.toString();
+        
+        catch(InvalidAuthTokenException e){
+            ex = e.toString();
+        }
+        catch(DataNotFoundException e){
+            ex = e.toString();
         }
     }
     public List<HourlyForecast.Forecast> getHourlyForecast(){
+
+        if(!(ex.equals("")))
+        {
+            return null;
+        }
+        else
+        {
             return forecastResponse.getForecasts();
+        }
+        
+
     }
 }
 
